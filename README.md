@@ -35,7 +35,7 @@ Client-server chat applications are software systems that enable real-time commu
 •	For security and privacy, chat applications often implement user authentication mechanisms.
 •	Users are required to provide credentials (e.g., username and password) to access the chat system.
 •	More advanced methods like tokens or secure protocols can enhance authentication.
-## 5. Message Routing:
+5. Message Routing:
 •	The server is responsible for routing messages from one client to another.
 •	It ensures that messages are delivered to the intended recipients.
 •	Message routing may involve maintaining a list of connected users and their associated sockets.
@@ -74,62 +74,43 @@ Client-server chat applications are versatile tools that facilitate real-time co
 Client-server chat applications are foundational to real-time communication over networks. They incorporate principles of socket programming, communication protocols, and security mechanisms to provide a seamless user experience. Understanding the basics of client-server chat applications is essential for developers involved in networked application development, as they form the backbone of various collaborative communication systems. As technology evolves, chat applications continue to adapt, incorporating new features and technologies to enhance user interaction and connectivity.
 
 ## PROGRAM:
-### client:
-```python
+DEVELOPED BY: Priyadharshini Raja
+REGISTER NUMBER: 212223230160
+
+## CLIENT:
 
 import socket
+s=socket.socket()
+s.bind(('localhost',8000))
+s.listen(5)
+c,addr=s.accept()
+size=int(input("Enter number of frames to send : "))
+l=list(range(size))
+s=int(input("Enter Window Size : "))
+st=0
+i=0
+while True:
+    while(i<len(l)):
+        st+=s
+        c.send(str(l[i:st]).encode())
+        ack=c.recv(1024).decode()
+        if ack:
+            print(ack)
+            i+=s
 
-client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-client.connect(("localhost", 9999))
+## SERVER:
 
-done=False
-
-while not done:
-    client.send(input("Message ").encode('utf-8'))
-    msg = client.recv(1024).decode('utf-8')
-
-    if msg == 'quit':
-        done=True
-    else:
-        print(msg)
-
-
-
-client.close()
-
-```
-### server
-```python
 import socket
-from base64 import decode
-from operator import truediv
+s=socket.socket()
+s.connect(('localhost',8000))
+while True: 
+ print(s.recv(1024).decode())
+ s.send("acknowledgement recived from the server".encode())
 
-server =socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server.bind(('localhost', 9999))
-server.listen()
-client,addr=server.accept()
-
-done = False
-
-while not done:
-    msg = client.recv(1024).decode('utf-8')
-
-    if msg == 'quit':
-        done = True
-    else:
-        print(msg)
-
-    client.send(input("Message ").encode('utf-8'))
-
-
-client.close()
-server.close()
-```
 
 ## OUTPUT:
-![image](https://github.com/user-attachments/assets/3387a89a-890f-4322-900f-9aed4ceee866)
-
+![image](https://github.com/Priya-dharshini-Raja/ChatStudy/assets/148514803/43057c18-8c96-4df7-9d98-8cceb7d84fe8)
 
 
 ## Result:
